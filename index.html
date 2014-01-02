@@ -39,6 +39,17 @@ function distToSegment( p, v, w ) { return Math.sqrt(distToSegmentSquared(p, v, 
 function lineSegmentsIntersect( p, p2, q, q2 ) {
     // two line segments: [p,p2] and [q,q2] - do they intersect?
     // http://stackoverflow.com/a/565282/126823
+    
+    // Coarse optimization: early-out if X coordinates clearly don't overlap.
+    if( (p.x < q.x) && (p2.x < q2.x) && (p.x < q2.x) && (p2.x < q.x) ) {
+		  return false;
+	  }
+	  else 
+	  if( (p.x > q.x) && (p2.x > q2.x) && (p.x > q2.x) && (p2.x > q.x) ) {
+		  return false;
+	  }
+    
+    
     var r = sub(p2, p);
     var s = sub(q2, q);
 
